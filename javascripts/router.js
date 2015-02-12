@@ -7,3 +7,9 @@ App.Router.map(function () {
     this.route("author", {path: "/:author_id"});
   });
 });
+
+App.IndexRoute = Ember.Route.extend({
+  beforeModel: function() {
+    this.transitionTo('books');
+  }
+});
