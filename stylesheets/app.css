@@ -1,0 +1,21 @@
+.review-window {
+  width:60%;
+}
+
+.simple-nav {
+  margin-bottom: 20px;
+}
+
+body {
+  margin:40px;
+}
+
+.main-outlet {
+  margin: 4px;
+}
+
+#container{
+  margin-top: -14px;
+  overflow:scroll;
+  height:80vh;
+}

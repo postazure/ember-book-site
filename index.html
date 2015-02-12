@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <script src="javascripts/vendor/jquery-2.1.3.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.8.1/semantic.min.js" ></script>
+    <script src="javascripts/vendor/handlebars-v3.0.0.js" ></script>
+    <script src="javascripts/vendor/ember.js" ></script>
+    <script src="javascripts/vendor/ember-template-compiler-1.10.0.js" ></script>
+    <script src="http://builds.emberjs.com/canary/ember-data.js" ></script>
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.8.1/semantic.min.css" media="screen" title="no title" >
+    <link rel="stylesheet" href="stylesheets/app.css" media="screen" title="no title" >
+  </head>
+  <body>
+    <script type="text/x-handlebars" id="application">
+      
+      <div class="ui tabular menu">
+        {{#link-to "books" classNames="item"}}Books{{/link-to}}
+        {{#link-to "authors" classNames="item"}}Authors{{/link-to}}
+      </div>
+        <div class="ui bottom attached segment" id="container">
+          <div class="main-outlet">
+
+            {{outlet}}
+          </div>
+        </div>
+    </script>
+
+    <script type="text/x-handlebars" id="books">
+      <div class="ui grid">
+        <div class="four wide column">
+          <div class="ui vertical pointing menu">
+            {{#each book in model}}
+              {{#link-to "books.book" book classNames="item"}}
+                {{book.title}}
+              {{/link-to}}
+            {{/each}}
+          </div>
+        </div>
+        <div class="twelve wide column">
+          {{outlet}}
+        </div>
+      </div>
+    </script>
+
+    <script type="text/x-handlebars" id="books/book">
+      <div class="ui segment">
+        <img class="ui small right floated image" {{bind-attr src=model.image}}>
+        <h2 class="ui header">
+          <a {{bind-attr href=model.amazonLink}}>{{model.title}}</a>
+          <div class="sub header">
+            {{#link-to "authors.author" author}}
+              {{model.author.name}}
+            {{/link-to}}
+          </div>
+        </h2>
+        {{model.genre}} | {{model.year}}
+
+        {{#if model.reviews}}<h4>Reviews for <u>{{model.title}}</u></h4>{{/if}}
+        {{#each review in model.reviews}}
+        <div class="ui secondary segment review-window">
+          <h5>{{review.userName}}</h5>
+          <p>{{review.text}}</p>
+        </div>
+        {{/each}}
+      </div>
+    </script>
+
+    <script type="text/x-handlebars" id="authors">
+      <div class="ui grid">
+        <div class="four wide column">
+          <div class="ui vertical pointing menu">
+            {{#each author in model}}
+              {{#link-to "authors.author" author classNames="item"}}
+                {{author.name}}
+              {{/link-to}}
+            {{/each}}
+          </div>
+        </div>
+        <div class="twelve wide column">
+          {{outlet}}
+        </div>
+      </div>
+    </script>
+
+
+    <script type="text/x-handlebars" id="authors/author">
+      <div class="ui segment">
+        <img class="ui small right floated image" {{bind-attr src=model.image}}>
+        <h2 class="ui header">{{model.name}}</h2>
+        <p>{{model.bio}}</p>
+        <div class="ui secondary segment review-window">
+          {{#each book in model.books}}
+            {{#link-to "books.book" book}}
+              <div><u>{{book.title}}</u></div>
+            {{/link-to}}
+          {{/each}}
+        </div>
+      </div>
+    </script>
+
+    <script src="javascripts/app.js"></script>
+    <script src="javascripts/router.js"></script>
+    <script src="javascripts/routes/book.js"></script>
+    <script src="javascripts/routes/author.js"></script>
+    <script src="javascripts/models/book.js"></script>
+    <script src="javascripts/models/review.js"></script>
+    <script src="javascripts/models/author.js"></script>
+  </body>
+</html>
