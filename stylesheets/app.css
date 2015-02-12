@@ -7,7 +7,8 @@
 }
 
 body {
-  margin:40px;
+  margin-left:40px;
+  margin-right:40px;
 }
 
 .main-outlet {
@@ -17,5 +18,10 @@ body {
 #container{
   margin-top: -14px;
   overflow:scroll;
-  height:80vh;
+  height:75vh;
+}
+
+#page-header {
+  text-align: center;
+  margin-top: -10px;
 }
